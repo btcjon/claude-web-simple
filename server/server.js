@@ -479,7 +479,10 @@ async function callClaudeAPI(userMessage, ws, messageId, clientId, sessionId = n
         // We might need to use --resume with session ID if available
       }
 
-      const claudeProcess = spawn('claude', args, {
+      // Use full path to claude on Linux/VPS, or just 'claude' on other systems
+      const claudeCommand = process.platform === 'linux' ? '/usr/bin/claude' : 'claude';
+
+      const claudeProcess = spawn(claudeCommand, args, {
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectPath,
         env: process.env
