@@ -20,6 +20,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { FileViewer } from './FileViewer';
+import { config } from '@/config';
 
 type FileItem = {
   name: string;
@@ -38,7 +39,10 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
   // Helper to get auth headers
   const getAuthHeaders = () => {
     const token = localStorage.getItem('auth_token');
-    return token ? { 'Authorization': `Bearer ${token}` } : {};
+    if (token) {
+      return { 'Authorization': `Bearer ${token}` };
+    }
+    return {};
   };
   const [fileTree, setFileTree] = useState<FileItem[]>([]);
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
@@ -68,7 +72,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
         return;
       }
 
-      const response = await fetch('http://localhost:3001/api/files', {
+      const response = await fetch(`${config.API_URL}/api/files`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -114,7 +118,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
 
   const handleSaveFile = async (path: string, content: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/files/${path}`, {
+      const response = await fetch(`${config.API_URL}/api/files/${path}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +140,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
 
   const handleDeleteFile = async (path: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/files/${path}`, {
+      const response = await fetch(`${config.API_URL}/api/files/${path}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
@@ -158,7 +162,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
 
   const handleRename = async (item: FileItem, newName: string) => {
     try {
-      const response = await fetch('http://localhost:3001/api/files/rename', {
+      const response = await fetch(`${config.API_URL}/api/files/rename`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -199,7 +203,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
 
     try {
       if (type === 'folder') {
-        const response = await fetch('http://localhost:3001/api/files/directory', {
+        const response = await fetch(`${config.API_URL}/api/files/directory`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -212,7 +216,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
           loadFileTree();
         }
       } else {
-        const response = await fetch(`http://localhost:3001/api/files/${path}`, {
+        const response = await fetch(`${config.API_URL}/api/files/${path}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -271,7 +275,7 @@ export function FileExplorer({ onFileSelect }: FileExplorerProps) {
       const base64Content = base64.split(',')[1];
 
       try {
-        const response = await fetch('http://localhost:3001/api/files/upload', {
+        const response = await fetch(`${config.API_URL}/api/files/upload`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

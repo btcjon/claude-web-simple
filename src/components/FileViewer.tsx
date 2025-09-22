@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Save, X, FileText, Trash2, Eye, Edit } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { config } from '@/config';
 
 type FileViewerProps = {
   file: {
@@ -36,7 +37,10 @@ export function FileViewer({ file, isOpen, onClose, onSave, onDelete }: FileView
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/files/${file.path}`);
+      const token = localStorage.getItem('auth_token');
+      const response = await fetch(`${config.API_URL}/api/files/${file.path}`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      });
       if (response.ok) {
         const data = await response.json();
         setContent(data.content);
