@@ -14,13 +14,8 @@ const getApiUrl = () => {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
 
-  // If served from same server (recommended for VPS)
-  if (window.location.port === '3000' || window.location.port === '') {
-    return `${protocol}//${hostname}:3001`;
-  }
-
-  // If using a reverse proxy (nginx) on VPS
-  return `${protocol}//${hostname}/api`;
+  // Always use port 3001 for the API server
+  return `${protocol}//${hostname}:3001`;
 };
 
 export const config = {
