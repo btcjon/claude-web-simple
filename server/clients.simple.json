@@ -1,0 +1,13 @@
+{
+  "clients": [
+    {
+      "id": "main",
+      "username": "admin",
+      "password": "dev:changeme",
+      "name": "Claude Web UI",
+      "projectPath": "/home/ubuntu/project",
+      "docsPath": "/home/ubuntu/project/docs",
+      "active": true
+    }
+  ]
+}

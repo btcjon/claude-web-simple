@@ -1,0 +1,31 @@
+{
+  "clients": [
+    {
+      "id": "client1",
+      "username": "client1",
+      "password": "$2b$10$YourHashedPasswordHere1",
+      "name": "Client 1 - E-commerce Site",
+      "projectPath": "/home/ubuntu/projects/client1",
+      "docsPath": "/home/ubuntu/projects/client1/docs",
+      "active": true
+    },
+    {
+      "id": "client2",
+      "username": "client2",
+      "password": "$2b$10$YourHashedPasswordHere2",
+      "name": "Client 2 - SaaS Platform",
+      "projectPath": "/home/ubuntu/projects/client2",
+      "docsPath": "/home/ubuntu/projects/client2/docs",
+      "active": true
+    },
+    {
+      "id": "demo",
+      "username": "demo",
+      "password": "dev:changeme",
+      "name": "Your Project Name",
+      "projectPath": "/Users/jonbennett/Dropbox/Coding-Main/your-project",
+      "docsPath": "/Users/jonbennett/Dropbox/Coding-Main/your-project/docs",
+      "active": true
+    }
+  ]
+}

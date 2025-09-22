@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Server
+server/temp/
+server/workspaces/
+server/sessions/
+server/clients.json
+!server/clients.example.json
+
+# Temporary files
+*.tmp
+temp-claudecodeui/
