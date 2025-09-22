@@ -479,12 +479,14 @@ async function callClaudeAPI(userMessage, ws, messageId, clientId, sessionId = n
         // We might need to use --resume with session ID if available
       }
 
-      // Use 'claude' command directly - Node will find it in PATH
+      // Use 'claude' command directly with proper environment
       const claudeProcess = spawn('claude', args, {
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectPath,
-        env: process.env,
-        shell: true  // Use shell to resolve the command properly
+        env: {
+          ...process.env,
+          PATH: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        }
       });
 
       // Store process for interrupt capability
