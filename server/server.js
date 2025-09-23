@@ -479,13 +479,17 @@ async function callClaudeAPI(userMessage, ws, messageId, clientId, sessionId = n
         // We might need to use --resume with session ID if available
       }
 
-      // Use 'claude' command directly with proper environment
-      const claudeProcess = spawn('claude', args, {
+      // Run claude through node explicitly since it's a Node.js script
+      const nodeCommand = '/usr/bin/node';
+      const claudeScript = '/usr/lib/node_modules/@anthropic-ai/claude-code/cli.js';
+
+      const claudeProcess = spawn(nodeCommand, [claudeScript, ...args], {
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectPath,
         env: {
           ...process.env,
-          PATH: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+          PATH: '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+          NODE_PATH: '/usr/lib/node_modules'
         }
       });
 
